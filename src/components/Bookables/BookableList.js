@@ -1,18 +1,20 @@
-import { bookables } from "../../static.json";
+import data from "../../static.json"; 
+const {bookables} = data; //Assign array of data to variable - bookables
 
-function BookableList() {
+export default function BookableList() {
    const group = "Rooms";
 
-   const bookableIinGroup = bookables.filter(bookable => bookable.group === group);
+    //fetch all rooms in bookables list
+   const bookableInGroup = bookables.filter(b => b.group === group);
 
-   const bookableIndex = 1; //hard code the index of the first bookable in the group
+   //**temporary****hard code the index of the first bookable in the group
+   const bookableIndex = 1; 
 
+  //render and display name of the rooms from "title" 
    return (
       <ul className="bookables items-list-nav">
-         {//Map over the bookable list and render each list item for each one
-            bookableIinGroup.map((b, i) => (
+         {bookableInGroup.map((b, i) => (
                <li key={b.id} className={i === bookableIndex ? "selected" : null}>
-                  {//set the class by comparing the current index to the selected index}
                   <button className="btn">
                      {b.title}
                   </button>
@@ -20,7 +22,4 @@ function BookableList() {
             ))}
       </ul>
    );
-
 }
-
-export default BookableList;
