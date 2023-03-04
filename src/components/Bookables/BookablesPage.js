@@ -1,7 +1,9 @@
+import BookableList from "./BookableList";
+
 function BookablesPage() {
     return (
         <main className="bookables-page">
-            <p>Bookables!</p>
+            <BookableList />
         </main>
     );
 }

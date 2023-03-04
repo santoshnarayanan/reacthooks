@@ -17,22 +17,22 @@ function App() {
           <nav>
             <ul>
               <li>
-              <Link to="/bookings" className="btn btn-header">
-                <FaCalendarAlt />
-                <span>Bookings</span>
-              </Link>
+                <Link to="/bookings" className="btn btn-header">
+                  <FaCalendarAlt />
+                  <span>Bookings</span>
+                </Link>
               </li>
               <li>
-              <Link to="/bookables" className="btn btn-header">
-                <FaDoorOpen />
-                <span>Bookables</span>
-              </Link>
+                <Link to="/bookables" className="btn btn-header">
+                  <FaDoorOpen />
+                  <span>Bookables</span>
+                </Link>
               </li>
               <li>
-              <Link to="/users" className="btn btn-header">
-                <FaUsers />
-                <span>Users</span>
-              </Link>
+                <Link to="/users" className="btn btn-header">
+                  <FaUsers />
+                  <span>Users</span>
+                </Link>
               </li>
             </ul>
           </nav>
