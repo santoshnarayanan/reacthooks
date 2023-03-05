@@ -25,6 +25,12 @@ export default function BookableList() {
    //use a third tracked state value to hold if the details are shown
    const [hasDetails, setHasDetails] = useState(false);
 
+   //Create handler function to respond to group selection
+   function changeGroup(event){
+      setGroup(event.target.value);     //Update group.
+      setBookableIndex(0);  //Set first bookable in group
+   }
+
    //this function is called when use clicks on Next button
    function nextBookable() {
       setBookableIndex(i => (i + 1) % bookableInGroup.length);
@@ -36,7 +42,7 @@ export default function BookableList() {
       <Fragment>
          <div>
             {/*Displays list of rooms based on group selected from dropdown */}
-            <select value={group}  onChange={e => setGroup(e.target.value)} >
+            <select value={group}  onChange={changeGroup} >
                {groups.map(g => <option key={g} value={g}>{g}</option>)}
             </select>
             <ul className="bookables items-list-nav">
