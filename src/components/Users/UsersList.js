@@ -1,7 +1,7 @@
-import {useState, useEffect, Fragment} from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Spinner from "../UI/Spinner";
 
-export default function UsersList () {
+export default function UsersList() {
   const [users, setUsers] = useState(null);
   const [userIndex, setUserIndex] = useState(0);
   const user = users?.[userIndex];
@@ -13,7 +13,7 @@ export default function UsersList () {
   }, []);
 
   if (users === null) {
-    return <p><Spinner/> Loading users...</p>
+    return <p><Spinner /> Loading users...</p>
   }
 
   return (

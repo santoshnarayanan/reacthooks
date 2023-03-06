@@ -6,15 +6,15 @@ export default function UserPicker() {
 
     useEffect(() => {
         async function getUsers() {
-         const resp = await fetch("http://localhost:3001/users");
-         const data = await (resp.json());
-         setUsers(data);
+            const resp = await fetch("http://localhost:3001/users");
+            const data = await (resp.json());
+            setUsers(data);
         }
         getUsers();
     }, []);
 
     if (users === null) {
-        return <Spinner />; 
+        return <Spinner />;
     }
 
     return (
