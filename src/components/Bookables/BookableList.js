@@ -1,9 +1,9 @@
-import { useReducer, useEffect, Fragment } from "react";
+import { useReducer, useEffect, useRef, Fragment } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 import Spinner from "../UI/Spinner";
 import reducer from "./reducer";          //import custom reducer created
-import getData from "../../utils/api";  
+import getData from "../../utils/api";
 
 //#region Loading data from json file
 import data from "../../static.json";
@@ -12,8 +12,8 @@ const { sessions, days } = data;
 
 //define initial state
 const initialState = {
-   group: "Rooms", 
-   bookableIndex: 0, 
+   group: "Rooms",
+   bookableIndex: 0,
    hasDetails: true,
    bookables: [], // setting bookables to empty array
    isLoading: true, //added to show loading spinner
@@ -41,20 +41,37 @@ export default function BookableList() {
    //Set() contain only unique values,so any duplicates will be discarded
    const groups = [...new Set(bookables.map(b => b.group))];
 
-      //#region - useEffect
-      useEffect(() => {
-         dispatch({type: "FETCH_BOOKABLES_REQUEST"});
-         getData(url)
-            .then(bookables => dispatch({
-               type: "FETCH_BOOKABLES_SUCCESS",
-               payload: bookables
-            }))
-            .catch(error => dispatch({
-               type: "FETCH_BOOKABLES_ERROR",
-               payload: error
-            }))
-      },[]);
-      //#endregion
+   const timerRef = useRef(null);
+
+   //#region - useEffect
+   useEffect(() => {
+      dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
+      getData(url)
+         .then(bookables => dispatch({
+            type: "FETCH_BOOKABLES_SUCCESS",
+            payload: bookables
+         }))
+         .catch(error => dispatch({
+            type: "FETCH_BOOKABLES_ERROR",
+            payload: error
+         }))
+   }, []);
+   //#endregion
+
+   //#region - useEffect with useRef
+   useEffect(() => {
+      timerRef.current = setInterval(() => {
+         dispatch({ type: "NEXT_BOOKABLE" });
+      }, 3000);
+
+      return stopPresentation;
+   }, []);
+
+   //#endregion
+
+   function stopPresentation() {
+      clearInterval(timerRef.current);
+   }
 
    //Create handler function to respond to group selection
    function changeGroup(e) {
@@ -80,11 +97,11 @@ export default function BookableList() {
       dispatch({ type: "TOGGLE_HAS_DETAILS" }); //dispatch action which does not need payload
    }
 
-   if(error){
-      return<p>{error.message}</p>
+   if (error) {
+      return <p>{error.message}</p>
    }
 
-   if(isLoading){
+   if (isLoading) {
       return <p><Spinner />   Loading...</p>
    }
 
@@ -126,6 +143,7 @@ export default function BookableList() {
                            <input type="checkbox" checked={hasDetails} onChange={toggleDetails} />
                            ShowDetails
                         </label>
+                        <button className="btn" onClick={stopPresentation}>Stop</button>
                      </span>
                   </div>
                   <p>{bookable.notes}</p>
