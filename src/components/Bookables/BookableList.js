@@ -41,7 +41,7 @@ export default function BookableList() {
    //Set() contain only unique values,so any duplicates will be discarded
    const groups = [...new Set(bookables.map(b => b.group))];
 
-   const timerRef = useRef(null);
+   const nextButtonRef = useRef();
 
    //#region - useEffect
    useEffect(() => {
@@ -58,21 +58,6 @@ export default function BookableList() {
    }, []);
    //#endregion
 
-   //#region - useEffect with useRef
-   useEffect(() => {
-      timerRef.current = setInterval(() => {
-         dispatch({ type: "NEXT_BOOKABLE" });
-      }, 3000);
-
-      return stopPresentation;
-   }, []);
-
-   //#endregion
-
-   function stopPresentation() {
-      clearInterval(timerRef.current);
-   }
-
    //Create handler function to respond to group selection
    function changeGroup(e) {
       dispatch({
@@ -86,6 +71,7 @@ export default function BookableList() {
          type: "SET_BOOKABLE",
          payload: selectedIndex
       });
+      nextButtonRef.current.focus(); //use the ref to focus on the next button
    }
 
    //function is called when use clicks on Next button
@@ -126,7 +112,7 @@ export default function BookableList() {
                ))}
             </ul>
             <p>
-               <button className="btn" onClick={nextBookable} autoFocus>
+               <button className="btn" onClick={nextBookable} ref={nextButtonRef} autoFocus>
                   <FaArrowRight />
                   <span>Next</span>
                </button>
@@ -143,7 +129,6 @@ export default function BookableList() {
                            <input type="checkbox" checked={hasDetails} onChange={toggleDetails} />
                            ShowDetails
                         </label>
-                        <button className="btn" onClick={stopPresentation}>Stop</button>
                      </span>
                   </div>
                   <p>{bookable.notes}</p>
