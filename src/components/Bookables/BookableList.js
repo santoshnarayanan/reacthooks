@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 import Spinner from "../UI/Spinner";
-import reducer from "./reducer";          //import custom reducer created
 import getData from "../../utils/api";
 
 
