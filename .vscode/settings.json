@@ -1,0 +1,8 @@
+{
+  "editor.fontFamily": "Droid Sans Mono', 'monospace', monospace",
+  "editor.fontLigatures": false,
+  "autoimport.doubleQuotes": true,
+  "autoimport.showNotifications": false,
+  "editor.formatOnSave": true,
+  "editor.fontSize": 20
+}
