@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 import Spinner from "../UI/Spinner";
@@ -6,13 +6,16 @@ import reducer from "./reducer";          //import custom reducer created
 import getData from "../../utils/api";
 
 
-export default function BookableList({ state, dispatch }) {
+export default function BookableList({ bookable, setBookable }) {
 
    const url = "http://localhost:3001/bookables";
 
-   //Assign state to variables
-   const { group, bookableIndex, bookables } = state;
-   const { isLoading, error } = state;
+   //Manage state with calls  to the useState hook
+   const [bookables, setBookables] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+   const [error, setError] = useState(false);
+
+   const group = bookable?.group; //Get the current group from selected bookable
 
    //fetch all rooms in bookables list
    const bookablesInGroup = bookables.filter(b => b.group === group);
@@ -25,38 +28,40 @@ export default function BookableList({ state, dispatch }) {
 
    //#region - useEffect
    useEffect(() => {
-      dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
       getData(url)
-         .then(bookables => dispatch({
-            type: "FETCH_BOOKABLES_SUCCESS",
-            payload: bookables
-         }))
-         .catch(error => dispatch({
-            type: "FETCH_BOOKABLES_ERROR",
-            payload: error
-         }))
-   }, [dispatch]); //Include dispatch for the effect
+         .then(bookables => {
+            setBookable(bookables[0]);    //use the setBookable prop to select the first bookable
+            setBookables(bookables);      // Use the local updater function to set the bookables state
+            setIsLoading(false);
+         })
+         .catch(error => {
+            setError(error);
+            setIsLoading(false)
+         });
+   }, [setBookable]); //Include dispatch for the effect
    //#endregion
 
    //Create handler function to respond to group selection
    function changeGroup(e) {
-      dispatch({
-         type: "SET_GROUP",
-         payload: e.target.value
-      });
+
+      //filter for the selected group
+      const bookablesInGroup = bookables.filter(b => b.group === e.target.value);
+
+      //Set the bookables state to the first in the group
+      setBookables(bookablesInGroup[0]);
    }
 
-   function changeBookable(selectedIndex) {
-      dispatch({
-         type: "SET_BOOKABLE",
-         payload: selectedIndex
-      });
+   function changeBookable(selectedBookable) {
+      setBookable(selectedBookable);
       nextButtonRef.current.focus(); //use the ref to focus on the next button
    }
 
    //function is called when use clicks on Next button
    function nextBookable() {
-      dispatch({ type: "NEXT_BOOKABLE" }); //dispatch action which does not need payload
+      const i = bookablesInGroup.indexOf(bookable);
+      const nextIndex = (i + 1) % bookablesInGroup.length;
+      const nextBookable = bookablesInGroup[nextIndex];
+      setBookable(nextBookable);
    }
 
    if (error) {
@@ -78,9 +83,9 @@ export default function BookableList({ state, dispatch }) {
          <ul className="bookables items-list-nav">
             {bookablesInGroup.map((b, i) => (
                <li key={b.id}
-                  className={i === bookableIndex ? "selected" : null}
+                  className={b.id === bookable.id ? "selected" : null}
                >
-                  <button className="btn" onClick={() => changeBookable(i)} >
+                  <button className="btn" onClick={() => changeBookable(b)} >
                      {b.title}
                   </button>
                </li>
