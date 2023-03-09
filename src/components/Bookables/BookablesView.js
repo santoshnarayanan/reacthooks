@@ -15,9 +15,17 @@ export default function BookablesView() {
     //call reducer by passing initial state
     const [bookable, setBookable] = useState();
 
+    //use callback function to update state
+    function updateBookable(selected) {
+        if (selected) {
+            selected.lastShown = Date.now();
+            setBookable(selected);
+        }
+    }
+
     return (
         <Fragment>
-            <BookableList bookable={bookable} setBookable={setBookable} />
+            <BookableList bookable={bookable} setBookable={updateBookable} />
             <BookableDetails bookable={bookable} />
         </Fragment>
     );
