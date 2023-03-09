@@ -20,7 +20,7 @@ export default function UsersList({ user, setUser }) {
         setError(error); // set the error object
         setIsLoading(false); // we're no longer loading
       });
-  }, []);
+  }, [setUser]);
 
   // alternative UI for when there's an error
   if (error) {
