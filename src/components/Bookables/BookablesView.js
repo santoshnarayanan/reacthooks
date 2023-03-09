@@ -5,7 +5,7 @@
  * @export
  * @return {*} 
  */
-import { Fragment, useState } from "react";
+import { useCallback, Fragment, useState } from "react";
 
 import BookableList from "./BookableList";
 import BookableDetails from "./BookableDetails";
@@ -16,12 +16,12 @@ export default function BookablesView() {
     const [bookable, setBookable] = useState();
 
     //use callback function to update state
-    function updateBookable(selected) {
+    const updateBookable = useCallback(selected => {
         if (selected) {
             selected.lastShown = Date.now();
             setBookable(selected);
         }
-    }
+    }, []);  // specify dependencies in callback function
 
     return (
         <Fragment>
