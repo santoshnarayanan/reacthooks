@@ -4,5 +4,8 @@
   "autoimport.doubleQuotes": true,
   "autoimport.showNotifications": false,
   "editor.formatOnSave": true,
-  "editor.fontSize": 20
+  "editor.fontSize": 20,
+  "postcss.validate": true,
+  "emmet.useInlineCompletions": true,
+  "emmet.preferences": {}
 }
