@@ -5,7 +5,7 @@ import { FaChevronLeft, FaCalendarDay, FaChevronRight, FaCalendarCheck } from "r
 // in the company
 
 export default function WeekPicker({ dispatch }) {
-    const textboxRef = useRef(null);
+    const textboxRef = useRef();
 
     //Handler for the Go button
     function goToDate() {
@@ -26,7 +26,7 @@ export default function WeekPicker({ dispatch }) {
                 </button>
 
                 <span>
-                    <input type="text" value={textboxRef} placeholder="e.g. 2023-01-02" defaultValue="2023.02.15" />
+                    <input type="text" ref={textboxRef} placeholder="e.g. 2023-01-02" defaultValue="2023.02.15" />
                     <button className="go btn" onClick={goToDate}>
                         <FaCalendarCheck />
                         <span>Go</span>
