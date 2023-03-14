@@ -44,10 +44,10 @@ export default function BookableList({ bookable, setBookable }) {
    function changeGroup(e) {
 
       //filter for the selected group
-      const bookablesInGroup = bookables.filter(b => b.group === e.target.value);
+      const bookablesSelectedInGroup = bookables.filter(b => b.group === e.target.value);
 
       //Set the bookables state to the first in the group
-      setBookables(bookablesInGroup[0]);
+      setBookable(bookablesSelectedInGroup[0]);
    }
 
    function changeBookable(selectedBookable) {
