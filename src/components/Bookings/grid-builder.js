@@ -28,3 +28,25 @@ export function getGrid(bookable, startDate) {
     return { grid, dates, sessions };
 
 };
+
+/**
+ *  We need to transform the array of  bookings into the handy lookup object
+ *  Using reduce to step through each booking and build up the bookings lookup 
+ * @export
+ * @param {*} bookingsArray
+ * @return {*} 
+ */
+export function transformBookings(bookingsArray) {
+    return bookingsArray.reduce((bookings, booking) => {
+
+        const { session, date } = booking;  //Destructure the session and date for current booking.
+
+        if (!bookings[session]) {
+            bookings[session] = {};    //Add a property to the lookuo for each new session.
+        }
+
+        bookings[session][date] = booking; //Assign the booking to its session and date.
+
+        return bookings;
+    }, {});
+};
