@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 import Spinner from "../UI/Spinner";
@@ -23,7 +23,6 @@ export default function BookableList({ bookable, setBookable }) {
    //Set() contain only unique values,so any duplicates will be discarded
    const groups = [...new Set(bookables.map(b => b.group))];
 
-   const nextButtonRef = useRef();
 
    //#region - useEffect
    useEffect(() => {
@@ -48,11 +47,6 @@ export default function BookableList({ bookable, setBookable }) {
 
       //Set the bookables state to the first in the group
       setBookable(bookablesSelectedInGroup[0]);
-   }
-
-   function changeBookable(selectedBookable) {
-      setBookable(selectedBookable);
-      nextButtonRef.current.focus(); //use the ref to focus on the next button
    }
 
    //function is called when use clicks on Next button
@@ -84,14 +78,14 @@ export default function BookableList({ bookable, setBookable }) {
                <li key={b.id}
                   className={b.id === bookable.id ? "selected" : null}
                >
-                  <button className="btn" onClick={() => changeBookable(b)} >
+                  <button className="btn" onClick={() => setBookable(b)} >
                      {b.title}
                   </button>
                </li>
             ))}
          </ul>
          <p>
-            <button className="btn" onClick={nextBookable} ref={nextButtonRef} autoFocus>
+            <button className="btn" onClick={nextBookable} autoFocus>
                <FaArrowRight />
                <span>Next</span>
             </button>
