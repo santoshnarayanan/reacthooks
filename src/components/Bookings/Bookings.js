@@ -1,10 +1,3 @@
-/**
- *
- *
- * @export
- * @param {*} { bookable }
- */
-
 import { useState, useReducer } from "react";
 import { getWeek } from "../../utils/date-wrangler";
 
@@ -22,7 +15,7 @@ export default function Bookings({ bookable }) {
         <div className="bookings">
             <div>
                 <WeekPicker dispatch={dispatch} />
-                <BookingsGrid week={week} bookable={booking} setBooking={setBooking} />
+                <BookingsGrid week={week} bookable={bookable} booking={booking} setBooking={setBooking} />
             </div>
             <BookingDetails booking={booking} bookable={bookable} />
         </div>

@@ -19,9 +19,9 @@ export function getGrid(bookable, startDate) {
 
     /** Assign an object to grid for each session */
     /** Assign a booking object for each date to each session */
-    sessions.array.forEach(session => {
+    sessions.forEach(session => {
         grid[session] = {};
-        dates.array.forEach(date => { grid[session][date] = { session, date, bookableId: bookable.id, title: "" } });
+        dates.forEach(date => { grid[session][date] = { session, date, bookableId: bookable.id, title: "" } });
     });
 
     //In addition to the grid return the dates and sessions array for convenience.
