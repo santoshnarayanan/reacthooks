@@ -7,37 +7,57 @@ import { FaChevronLeft, FaCalendarDay, FaChevronRight, FaCalendarCheck } from "r
 export default function WeekPicker({ dispatch }) {
     const textboxRef = useRef();
 
-    //Handler for the Go button
-    function goToDate() {
-        dispatch({ type: "SET_DATE", payload: textboxRef.current.value });
-    }
+  function goToDate () {
+    dispatch({
+      type: "SET_DATE",
+      payload: textboxRef.current.value
+    });
+  }
 
-    return (
-        <div>
-            <p className="date-picker">
-                {/*Dispatch actions to the reducer to switch weeks(PREV_WEEK, TODAY, NEXT_WEEK) */}
-                <button className="btn" onClick={() => dispatch({ type: "PREV_WEEK" })}   >
-                    <FaChevronLeft />
-                    <span>Prev</span>
-                </button>
-                <button className="btn" onClick={() => dispatch({ type: "TODAY" })}  >
-                    <FaCalendarDay />
-                    <span>Today</span>
-                </button>
+  return (
+    <div>
+      <p className="date-picker">
+        <button
+          className="btn"
+          onClick={() => dispatch({type: "PREV_WEEK"})}
+        >
+          <FaChevronLeft/>
+          <span>Prev</span>
+        </button>
 
-                <span>
-                    <input type="text" ref={textboxRef} placeholder="e.g. 2023-01-02" defaultValue="2023.02.15" />
-                    <button className="go btn" onClick={goToDate}>
-                        <FaCalendarCheck />
-                        <span>Go</span>
-                    </button>
-                </span>
+        <button
+          className="btn"
+          onClick={() => dispatch({type: "TODAY"})}
+        >
+          <FaCalendarDay/>
+          <span>Today</span>
+        </button>
 
-                <button className="btn" onClick={() => dispatch({ type: "NEXT_WEEK" })}  >
-                    <span>Next</span>
-                    <FaChevronRight />
-                </button>
-            </p>
-        </div>
-    );
+        <span>
+          <input
+            type="text"
+            ref={textboxRef}
+            placeholder="e.g. 2020-09-02"
+            defaultValue="2020-06-24"
+          />
+
+        <button
+          className="go btn"
+          onClick={goToDate}
+        >
+          <FaCalendarCheck/>
+          <span>Go</span>
+        </button>
+      </span>
+
+        <button
+          className="btn"
+          onClick={() => dispatch({type: "NEXT_WEEK"})}
+        >
+          <span>Next</span>
+          <FaChevronRight/>
+        </button>
+      </p>
+    </div>
+  );
 }
