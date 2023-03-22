@@ -35,7 +35,7 @@ export default function UsersList({ user, setUser }) {
   // this UI is unchanged
   return (
     <ul className="users items-list-nav">
-      {users.map((u, i) => (
+      {users.map(u => (
         <li
           key={u.id}
           className={u.id === user?.id ? "selected" : null}

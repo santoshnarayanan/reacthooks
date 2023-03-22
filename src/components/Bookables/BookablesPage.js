@@ -5,12 +5,10 @@
 
 import BookablesView from "./BookablesView";
 
-function BookablesPage() {
-    return (
-        <main className="bookables-page">
-            <BookablesView />
-        </main>
-    );
+export default function BookablesPage () {
+  return (
+    <main className="bookables-page">
+      <BookablesView/>
+    </main>
+  );
 }
-
-export default BookablesPage;

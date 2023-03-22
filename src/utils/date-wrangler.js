@@ -4,27 +4,15 @@ export function addDays(date, daysToAdd) {
     return clone;
 }
 
-export function addMonths(date, monthsToAdd) {
-    const clone = new Date(date.getTime());
-    clone.setMonth(clone.getMonth() + monthsToAdd);
-    return clone;
-}
+export function getWeek (forDate, daysOffset = 0) {
+  const date = addDays(forDate, daysOffset);
+  const day = date.getDay();
 
-export function addYears(date, yearsToAdd) {
-    const clone = new Date(date.getTime());
-    clone.setFullYear(clone.getFullYear() + yearsToAdd);
-    return clone;
-}
-
-
-export function getWeek(forDate, daysOffset = 0) {
-    const date = addDays(forDate, daysOffset); //Immediatly shift date
-    const day = date.getDay(); //get day index for the new date
-    return {
-        date,
-        start: addDays(date, -day), //e.g. Tuesday shift back by 2 days
-        end: addDays(date, 6 - day) //e.g. Tuesday shift forward by 4 days
-    };
+  return {
+    date,
+    start: addDays(date, -day),
+    end: addDays(date, 6 - day)
+  };
 }
 
 export function shortISO(date) {
