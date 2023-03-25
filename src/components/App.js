@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FaCalendarAlt, FaDoorOpen, FaUsers } from "react-icons/fa";
 import UserContext from "./Users/UserContext";
@@ -10,46 +10,47 @@ import BookingsPage from "./Bookings/BookingsPage";
 import UsersPage from "./Users/UsersPage";
 import UserPicker from "./Users/UserPicker";
 
-export default function App () {
+export default function App() {
   const [user, setUser] = useState();
 
   return (
-      <UserContext.Provider value={user}>
-        <Router>
-          <div className="App">
-            <header>
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="/bookings" className="btn btn-header">
-                      <FaCalendarAlt />
-                      <span>Bookings</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/bookables" className="btn btn-header">
-                      <FaDoorOpen />
-                      <span>Bookables</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/users" className="btn btn-header">
-                      <FaUsers />
-                      <span>Users</span>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-              <UserPicker user={user} setUser={setUser} />
-            </header>
-             <Routes>
-            <Route path="/bookings" element={<BookingsPage/>}/>
-            <Route path="/bookables" element={<BookablesPage/>}/>
-            <Route path="/users" element={<UsersPage/>}/>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Router>
+        <div className="App">
+          <header>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/bookings" className="btn btn-header">
+                    <FaCalendarAlt />
+                    <span>Bookings</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/bookables" className="btn btn-header">
+                    <FaDoorOpen />
+                    <span>Bookables</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/users" className="btn btn-header">
+                    <FaUsers />
+                    <span>Users</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            {/* no props needed on UserPicker */}
+            <UserPicker />
+          </header>
+          <Routes>
+            <Route path="/bookings" element={<BookingsPage />} />
+            <Route path="/bookables" element={<BookablesPage />} />
+            <Route path="/users" element={<UsersPage />} />
           </Routes>
-          </div >
-        </Router>
-      </UserContext.Provider>
+        </div >
+      </Router>
+    </UserContext.Provider>
 
   );
 }

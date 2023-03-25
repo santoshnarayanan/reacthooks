@@ -1,8 +1,13 @@
-import {useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import Spinner from "../UI/Spinner";
+import UserContext from "./UserContext";
 
-export default function UserPicker ({user, setUser}) {
+export default function UserPicker() {
   const [users, setUsers] = useState(null);
+
+  // use destructuring to assign the properties of the
+  // context object to local variables
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -13,7 +18,7 @@ export default function UserPicker ({user, setUser}) {
       });
   }, [setUser]);
 
-  function handleSelect (e) {
+  function handleSelect(e) {
     const selectedID = parseInt(e.target.value, 10);
     const selectedUser = users.find(u => u.id === selectedID);
 
@@ -21,7 +26,7 @@ export default function UserPicker ({user, setUser}) {
   }
 
   if (users === null) {
-    return <Spinner/>
+    return <Spinner />
   }
 
   return (
