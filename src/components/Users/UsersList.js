@@ -1,38 +1,35 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Spinner from "../UI/Spinner";
-import getData from "../../utils/api"; // we'll use this api function
+import getData from "../../utils/api";
 
-export default function UsersList({ user, setUser }) {
-  // include state for an error object and an isLoading flag
+export default function UsersList ({user, setUser}) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState(null);
 
-  // update the effect to use the getData function
   useEffect(() => {
     getData("http://localhost:3001/users")
       .then(data => {
-        setUser(data[0]); // set the user to the first user
+        // don't set user here - it's done in UsersPage
         setUsers(data);
-        setIsLoading(false); // the data has finished loading
+        setIsLoading(false);
       })
       .catch(error => {
-        setError(error); // set the error object
-        setIsLoading(false); // we're no longer loading
+        setError(error);
+        setIsLoading(false);
       });
-  }, [setUser]);
+  }, [setUser]); // pass in dependency
 
-  // alternative UI for when there's an error
   if (error) {
     return <p>{error.message}</p>
   }
 
-  // alternative UI while users load
   if (isLoading) {
-    return <p><Spinner /> Loading users...</p>
+    return <p><Spinner/> Loading users...</p>
   }
 
-  // this UI is unchanged
+  // user user.id to match selection.
+  // remove the UI for user details
   return (
     <ul className="users items-list-nav">
       {users.map(u => (
