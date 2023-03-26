@@ -10,7 +10,7 @@ export default function UsersPage() {
   // the value from context is now an object,
   // so use destructuring to assign the user
   // context property to the loggedInUser variable
-  const { user: loggedInUser } = useContext(UserContext);
+  const loggedInUser = useContext(UserContext);
 
   //if no user has been selected in the users list, select the logged user
   const currentUser = user || loggedInUser;
