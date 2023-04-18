@@ -4,6 +4,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+# Setting Json-Server package
+Creating the new db.json file
+Setting up a JSON server using the json-server package
+Building a component to fetch data from our server, displaying a list of users
+## First run below command 
+### `npm install -g json-server`
+### `json-server --watch db.json --port 3001`
+
 In the project directory, you can run:
 
 ### `npm start`
